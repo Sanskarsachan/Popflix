@@ -153,11 +153,41 @@ This typically happens when **Metro Bundler** loses file tracking or `expo-route
    npm install
    ```
 
-#### 📸 Screenshot Example
+🧠 FIND 102 — Invalid Project Root (Expo Customise Error)
+❌ Issue
 
-*(Add your error log screenshot here — e.g., `![Metro SHA-1 Error](docs/images/metro-sha1-error.png)`)*
+When trying to customize Metro configuration using:
 
----
+npx expo customise metro.config.js
+
+
+You may get this error:
+
+Invalid project root: /Users/sanskarsachan/Documents/Folder-M/Popflix/flix/customise
+
+💡 Reason
+
+This usually happens when the command is executed inside a subfolder instead of the actual Expo project root.
+
+The expo customise command must be run from the root directory of your Expo project, where app.json or app.config.js resides.
+
+✅ FIX
+
+Run the command from your project root instead of inside a nested folder:
+
+# ❌ Wrong (inside customise folder)
+cd customise
+npx expo customise metro.config.js
+
+# ✅ Correct (from project root)
+cd /Users/sanskarsachan/Documents/Folder-M/Popflix/flix
+npx expo customise metro.config.js
+
+
+After successful execution, you’ll see:
+
+✔ metro.config.js has been created in your project root
+
 
 ## 📁 Folder Structure
 
