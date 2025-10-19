@@ -104,7 +104,13 @@ flix/
 ├── .npmrc                      # pnpm configuration
 ├── tsconfig.json               # TypeScript configuration
 ├── eslint.config.js            # ESLint configuration
-└── expo-env.d.ts               # Expo TypeScript definitions
+├── expo-env.d.ts               # Expo TypeScript definitions
+├── nativewind-env.d.ts        # NativeWind TypeScript definitions
+├── tailwind.config.js          # Tailwind CSS configuration
+├── postcss.config.js           # PostCSS configuration
+├── metro.config.js             # Metro bundler configuration
+├── babel.config.js             # Babel configuration
+└── app/globals.css             # Global CSS with Tailwind directives
 ```
 
 ## 🔧 Key Files Explained
@@ -247,12 +253,159 @@ If you're migrating from npm:
 
 3. **Update scripts**: Replace `npm` with `pnpm` in all commands
 
+## 🎨 NativeWind & Tailwind CSS
+
+This project uses **NativeWind** - Tailwind CSS for React Native, providing utility-first styling with full TypeScript support.
+
+### Why NativeWind?
+- **🎯 Utility-first**: Rapid UI development with utility classes
+- **🌙 Dark mode**: Built-in dark mode support
+- **📱 Cross-platform**: Consistent styling across iOS, Android, and Web
+- **⚡ Performance**: Optimized for React Native
+- **🔧 TypeScript**: Full type safety for className props
+- **🎨 Customizable**: Easy theme customization
+
+### NativeWind Dependencies
+```json
+{
+  "nativewind": "^4.2.1",
+  "tailwindcss": "^3.4.18",
+  "postcss": "^8.5.6",
+  "autoprefixer": "^10.4.21"
+}
+```
+
+### Configuration Files
+
+#### `tailwind.config.js`
+```javascript
+module.exports = {
+  content: [
+    "./app/**/*.{js,jsx,ts,tsx}",
+    "./components/**/*.{js,jsx,ts,tsx}",
+    "./constants/**/*.{js,jsx,ts,tsx}",
+    "./hooks/**/*.{js,jsx,ts,tsx}",
+  ],
+  presets: [require("nativewind/preset")],
+  theme: {
+    extend: {
+      colors: {
+        primary: { /* Custom color palette */ },
+        secondary: { /* Secondary colors */ },
+      },
+    },
+  },
+}
+```
+
+#### `metro.config.js`
+```javascript
+const { getDefaultConfig } = require("expo/metro-config");
+const { withNativeWind } = require('nativewind/metro');
+
+const config = getDefaultConfig(__dirname);
+module.exports = withNativeWind(config, { input: './app/globals.css' });
+```
+
+#### `babel.config.js`
+```javascript
+module.exports = function (api) {
+  api.cache(true);
+  return {
+    presets: [
+      ["babel-preset-expo", { jsxImportSource: "nativewind" }],
+      "nativewind/babel",
+    ],
+    plugins: [
+      "expo-router/babel",
+      "react-native-reanimated/plugin",
+    ],
+  };
+};
+```
+
+### Usage Examples
+
+#### Basic Styling
+```tsx
+import { View, Text } from 'react-native';
+
+export default function MyComponent() {
+  return (
+    <View className="flex-1 bg-white dark:bg-gray-900 p-4">
+      <Text className="text-xl font-bold text-gray-900 dark:text-white">
+        Hello NativeWind!
+      </Text>
+    </View>
+  );
+}
+```
+
+#### Custom Components
+```tsx
+// Using predefined component classes from globals.css
+<TouchableOpacity className="btn-primary">
+  <Text className="text-white font-semibold">Primary Button</Text>
+</TouchableOpacity>
+
+<View className="card p-4">
+  <Text className="text-lg font-medium">Card Content</Text>
+</View>
+```
+
+#### Responsive Design
+```tsx
+<View className="w-full md:w-1/2 lg:w-1/3">
+  <Text className="text-sm md:text-base lg:text-lg">
+    Responsive text sizing
+  </Text>
+</View>
+```
+
+### Custom Component Classes
+
+The project includes pre-built component classes in `app/globals.css`:
+
+- **`.btn-primary`**: Primary button styling
+- **`.btn-secondary`**: Secondary button styling  
+- **`.card`**: Card container with shadow and border
+- **`.input`**: Form input styling with dark mode support
+
+### Dark Mode Support
+
+NativeWind automatically handles dark mode based on the system preference:
+
+```tsx
+// Automatic dark mode switching
+<View className="bg-white dark:bg-gray-800">
+  <Text className="text-gray-900 dark:text-white">
+    This text adapts to dark/light mode
+  </Text>
+</View>
+```
+
+### TypeScript Integration
+
+Full TypeScript support with `nativewind-env.d.ts`:
+
+```typescript
+import { NativeWindType } from 'nativewind/types';
+
+declare module 'react-native' {
+  interface ViewProps extends NativeWindType {}
+  interface TextProps extends NativeWindType {}
+  interface ScrollViewProps extends NativeWindType {}
+  interface ImageProps extends NativeWindType {}
+}
+```
+
 ## 📱 Features
 
 - ✅ **Expo Router**: File-based routing
 - ✅ **Tab Navigation**: Bottom tab bar with haptic feedback
 - ✅ **Modal Screens**: Full-screen modals
 - ✅ **Theme Support**: Dark/light mode
+- ✅ **NativeWind**: Tailwind CSS for React Native
 - ✅ **TypeScript**: Full type safety
 - ✅ **Cross-platform**: iOS, Android, Web
 - ✅ **React Compiler**: Optimized builds

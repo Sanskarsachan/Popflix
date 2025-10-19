@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  /* Add any global base styles here */
+}
+
+/* Custom component styles */
+@layer components {
+  /* Add any reusable component styles here */
+  .btn-primary {
+    @apply bg-primary-600 text-white px-4 py-2 rounded-lg font-medium;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary-200 text-secondary-800 px-4 py-2 rounded-lg font-medium;
+  }
+  
+  .card {
+    @apply bg-white dark:bg-secondary-800 rounded-xl shadow-sm border border-secondary-200 dark:border-secondary-700;
+  }
+  
+  .input {
+    @apply border border-secondary-300 dark:border-secondary-600 rounded-lg px-3 py-2 bg-white dark:bg-secondary-700 text-secondary-900 dark:text-secondary-100;
+  }
+}
+
+/* Custom utility styles */
+@layer utilities {
+  /* Add any custom utility classes here */
+  .text-balance {
+    text-wrap: balance;
+  }
+}
