@@ -72,46 +72,97 @@ This file ensures pnpm is used consistently and configures behavior for React Na
 ```
 flix/
 ├── app/                          # Expo Router app directory
-│   ├── _layout.tsx              # Root layout with theme provider
-│   ├── (tabs)/                  # Tab navigation group
-│   │   ├── _layout.tsx          # Tab layout configuration
-│   │   ├── index.tsx            # Home tab screen
-│   │   └── explore.tsx          # Explore tab screen
-│   └── modal.tsx                # Modal screen
-├── components/                  # Reusable UI components
-│   ├── ui/                      # UI-specific components
-│   │   ├── icon-symbol.tsx      # Cross-platform icon component
-│   │   └── icon-symbol.ios.tsx  # iOS-specific icon implementation
-│   ├── themed-text.tsx          # Themed text component
-│   ├── themed-view.tsx          # Themed view component
-│   ├── haptic-tab.tsx           # Haptic feedback tab button
-│   ├── hello-wave.tsx           # Animated wave component
-│   ├── external-link.tsx        # External link component
+│   ├── _layout.tsx               # Root layout with theme provider and Stack
+│   ├── (tabs)/                   # Bottom tab navigation group
+│   │   ├── _layout.tsx           # Tabs: index, explore, watchlist, profile
+│   │   ├── index.tsx             # Home tab
+│   │   ├── explore.tsx           # Explore tab
+│   │   ├── watchlist.tsx         # Watchlist tab
+│   │   └── profile.tsx           # Profile tab
+│   ├── auth/
+│   │   └── onboarding.tsx        # Simple onboarding/login screen
+│   └── movies/
+│       └── [id].tsx              # Dynamic movie details route
+├── components/                   # Reusable UI components
+│   ├── ui/                       # UI-specific components
+│   │   ├── icon-symbol.tsx       # Cross-platform icon component
+│   │   └── icon-symbol.ios.tsx   # iOS-specific icon implementation
+│   ├── themed-text.tsx           # Themed text component
+│   ├── themed-view.tsx           # Themed view component
+│   ├── haptic-tab.tsx            # Haptic feedback tab button
+│   ├── hello-wave.tsx            # Animated wave component
+│   ├── external-link.tsx         # External link component
 │   └── parallax-scroll-view.tsx  # Parallax scroll component
 ├── constants/
-│   └── theme.ts                 # Color schemes and font definitions
-├── hooks/                       # Custom React hooks
-│   ├── use-color-scheme.ts      # Color scheme detection hook
-│   ├── use-color-scheme.web.ts  # Web-specific color scheme hook
-│   └── use-theme-color.ts       # Theme color hook
-├── assets/                      # Static assets
-│   └── images/                  # App icons and images
+│   └── theme.ts                  # Color schemes and font definitions
+├── hooks/                        # Custom React hooks
+│   ├── use-color-scheme.ts       # Color scheme detection hook
+│   ├── use-color-scheme.web.ts   # Web-specific color scheme hook
+│   └── use-theme-color.ts        # Theme color hook
+├── assets/                       # Static assets
+│   └── images/                   # App icons and images
 ├── scripts/
-│   └── reset-project.js         # Project reset utility
-├── app.json                     # Expo configuration
-├── package.json                 # Project dependencies and scripts
-├── pnpm-lock.yaml              # pnpm lock file
-├── .npmrc                      # pnpm configuration
-├── tsconfig.json               # TypeScript configuration
-├── eslint.config.js            # ESLint configuration
-├── expo-env.d.ts               # Expo TypeScript definitions
-├── nativewind-env.d.ts        # NativeWind TypeScript definitions
-├── tailwind.config.js          # Tailwind CSS configuration
-├── postcss.config.js           # PostCSS configuration
-├── metro.config.js             # Metro bundler configuration
-├── babel.config.js             # Babel configuration
-└── app/globals.css             # Global CSS with Tailwind directives
+│   └── reset-project.js          # Project reset utility
+├── app.json                      # Expo configuration
+├── package.json                  # Project dependencies and scripts
+├── pnpm-lock.yaml                # pnpm lock file
+├── .npmrc                        # pnpm configuration
+├── tsconfig.json                 # TypeScript configuration
+├── eslint.config.js              # ESLint configuration
+├── expo-env.d.ts                 # Expo TypeScript definitions
+├── nativewind-env.d.ts           # NativeWind TypeScript definitions
+├── tailwind.config.js            # Tailwind CSS configuration
+├── postcss.config.js             # PostCSS configuration
+├── metro.config.js               # Metro bundler configuration
+├── babel.config.js               # Babel configuration
+└── app/globals.css              # Global CSS with Tailwind directives
 ```
+
+## 🧭 Tabs Navigation
+
+The app uses Expo Router groups for a bottom tab bar under `app/(tabs)`:
+
+- **Home (`index.tsx`)**: landing list with links
+- **Explore (`explore.tsx`)**: discovery surface
+- **Watchlist (`watchlist.tsx`)**: saved items
+- **Profile (`profile.tsx`)**: user area
+
+Configured in `app/(tabs)/_layout.tsx`:
+
+```12:19:/Users/sanskarsachan/Documents/Folder-M/Popflix/flix/app/(tabs)/_layout.tsx
+export default function Layout() {
+    return (
+        <Tabs>
+            <Tabs.Screen name="index" options={{ headerShown: false }} />
+            <Tabs.Screen name="explore" options={{ headerShown: false }} />
+            <Tabs.Screen name="watchlist" options={{ headerShown: false }} />
+            <Tabs.Screen name="profile" options={{ headerShown: false }} />
+        </Tabs>
+    )
+}
+```
+
+Root stack configured in `app/_layout.tsx`:
+
+```6:14:/Users/sanskarsachan/Documents/Folder-M/Popflix/flix/app/_layout.tsx
+export default function RootLayout() {
+  return (
+    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: '#132440' }}>
+      <StatusBar style="dark" />
+      <Stack screenOptions={{
+        headerShown: false,
+      }} />
+    </SafeAreaView>
+  );
+}
+```
+
+## 🆕 Recent Changes
+
+- Added bottom tab navigation group under `app/(tabs)` with four tabs
+- Added `auth/onboarding.tsx` and `movies/[id].tsx` example routes
+- Updated root `app/_layout.tsx` to use `Stack` within a `SafeAreaView`
+- Removed legacy `app/index.tsx` in favor of tab-based `app/(tabs)/index.tsx`
 
 ## 🔧 Key Files Explained
 
