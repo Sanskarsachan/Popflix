@@ -399,6 +399,192 @@ declare module 'react-native' {
 }
 ```
 
+## 🎨 Brand Color Palette
+
+Popflix uses a carefully crafted color palette that reflects the brand's personality and creates a cohesive visual experience.
+
+### Brand Colors
+
+| Color | Hex | RGB | Usage | Psychology |
+|-------|-----|-----|-------|------------|
+| **Crimson Red** | `#BF092F` | `rgb(191, 9, 47)` | Primary actions, CTAs, highlights | Bold, energetic, attention-grabbing |
+| **Deep Navy** | `#132440` | `rgb(19, 36, 64)` | Headers, navigation, primary text | Professional, trustworthy, sophisticated |
+| **Ocean Blue** | `#16476A` | `rgb(22, 71, 106)` | Secondary elements, links, supporting content | Calm, reliable, modern |
+| **Fresh Teal** | `#3B9797` | `rgb(59, 151, 151)` | Success states, accents, secondary actions | Fresh, balanced, contemporary |
+
+### Color System Integration
+
+The brand colors are integrated into Tailwind CSS through a comprehensive color system:
+
+```javascript
+// tailwind.config.js
+colors: {
+  // Direct brand colors
+  brand: {
+    crimson: '#BF092F',      // Primary brand color
+    navy: '#132440',        // Deep professional navy
+    ocean: '#16476A',       // Calm ocean blue
+    teal: '#3B9797',        // Fresh teal accent
+  },
+  // Semantic color scales based on brand colors
+  primary: { /* Crimson-based scale */ },
+  secondary: { /* Ocean-based scale */ },
+  accent: { /* Teal-based scale */ },
+  neutral: { /* Navy-based scale */ },
+}
+```
+
+### Usage Examples
+
+#### Direct Brand Colors
+```tsx
+// Primary brand color
+<View className="bg-brand-crimson">
+  <Text className="text-white">Primary Action</Text>
+</View>
+
+// Professional navy
+<View className="bg-brand-navy">
+  <Text className="text-white">Navigation</Text>
+</View>
+
+// Calm ocean blue
+<View className="bg-brand-ocean">
+  <Text className="text-white">Secondary</Text>
+</View>
+
+// Fresh teal accent
+<View className="bg-brand-teal">
+  <Text className="text-white">Accent</Text>
+</View>
+```
+
+#### Semantic Colors
+```tsx
+// Using semantic color scales
+<View className="bg-primary-500">     // Crimson
+<View className="bg-secondary-500">   // Ocean
+<View className="bg-accent-500">      // Teal
+<View className="bg-neutral-800">     // Navy
+```
+
+### Pre-built Component Classes
+
+The project includes brand-specific component classes in `app/globals.css`:
+
+#### Buttons
+```tsx
+<TouchableOpacity className="btn-primary">
+  <Text className="text-white font-semibold">Primary Button</Text>
+</TouchableOpacity>
+
+<TouchableOpacity className="btn-secondary">
+  <Text className="text-white font-semibold">Secondary Button</Text>
+</TouchableOpacity>
+
+<TouchableOpacity className="btn-accent">
+  <Text className="text-white font-semibold">Accent Button</Text>
+</TouchableOpacity>
+
+<TouchableOpacity className="btn-outline">
+  <Text className="text-brand-crimson font-semibold">Outline Button</Text>
+</TouchableOpacity>
+```
+
+#### Cards & Containers
+```tsx
+// Standard card
+<View className="card p-4">
+  <Text className="text-lg font-semibold">Card Content</Text>
+</View>
+
+// Brand gradient card
+<View className="card-brand p-6">
+  <Text className="text-white text-xl font-bold">Brand Card</Text>
+</View>
+```
+
+#### Form Elements
+```tsx
+// Standard input with brand focus
+<TextInput className="input" placeholder="Enter text..." />
+
+// Brand-styled input
+<TextInput className="input-brand" placeholder="Brand input..." />
+```
+
+#### Text Styles
+```tsx
+<Text className="text-brand">Brand colored text</Text>
+<Text className="text-accent">Accent colored text</Text>
+<Text className="text-muted">Muted secondary text</Text>
+```
+
+### Color Accessibility
+
+The color palette has been designed with accessibility in mind:
+
+- **High contrast ratios** between text and background colors
+- **Dark mode support** with appropriate color variations
+- **Semantic color usage** for consistent user experience
+- **Focus states** with clear visual indicators
+
+### Design Guidelines
+
+#### Primary Color (Crimson #BF092F)
+- Use for primary call-to-action buttons
+- Highlight important information
+- Brand elements and logos
+- Error states and alerts
+
+#### Secondary Color (Ocean #16476A)
+- Secondary buttons and actions
+- Links and interactive elements
+- Supporting content
+- Progress indicators
+
+#### Accent Color (Teal #3B9797)
+- Success states and confirmations
+- Secondary highlights
+- Accent elements
+- Positive feedback
+
+#### Neutral Color (Navy #132440)
+- Headers and navigation
+- Primary text content
+- Professional elements
+- Backgrounds and borders
+
+### Quick Reference
+
+**Brand Color Classes:**
+```tsx
+bg-brand-crimson    // #BF092F - Primary brand
+bg-brand-navy       // #132440 - Professional navy  
+bg-brand-ocean      // #16476A - Calm ocean blue
+bg-brand-teal       // #3B9797 - Fresh teal accent
+
+text-brand-crimson  // Crimson text
+text-brand-navy     // Navy text
+text-brand-ocean    // Ocean text
+text-brand-teal     // Teal text
+```
+
+**Component Classes:**
+```tsx
+btn-primary         // Crimson button with hover effects
+btn-secondary       // Ocean blue button
+btn-accent          // Teal button
+btn-outline         // Crimson outline button
+card                // Standard white card
+card-brand          // Navy-to-ocean gradient card
+input               // Standard input with crimson focus
+input-brand         // Ocean border input
+text-brand          // Crimson text
+text-accent         // Teal text
+text-muted          // Neutral muted text
+```
+
 ## 📱 Features
 
 - ✅ **Expo Router**: File-based routing
@@ -406,6 +592,8 @@ declare module 'react-native' {
 - ✅ **Modal Screens**: Full-screen modals
 - ✅ **Theme Support**: Dark/light mode
 - ✅ **NativeWind**: Tailwind CSS for React Native
+- ✅ **Brand Color System**: Custom color palette with semantic scales
+- ✅ **Pre-built Components**: Brand-specific button, card, and form styles
 - ✅ **TypeScript**: Full type safety
 - ✅ **Cross-platform**: iOS, Android, Web
 - ✅ **React Compiler**: Optimized builds

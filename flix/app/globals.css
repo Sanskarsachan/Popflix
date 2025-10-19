@@ -9,21 +9,61 @@
 
 /* Custom component styles */
 @layer components {
-  /* Add any reusable component styles here */
+  /* Brand-specific buttons */
   .btn-primary {
-    @apply bg-primary-600 text-white px-4 py-2 rounded-lg font-medium;
+    @apply bg-brand-crimson hover:bg-primary-600 active:bg-primary-700 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition-colors;
   }
   
   .btn-secondary {
-    @apply bg-secondary-200 text-secondary-800 px-4 py-2 rounded-lg font-medium;
+    @apply bg-brand-ocean hover:bg-secondary-600 active:bg-secondary-700 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition-colors;
   }
   
+  .btn-accent {
+    @apply bg-brand-teal hover:bg-accent-600 active:bg-accent-700 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition-colors;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-brand-crimson text-brand-crimson hover:bg-brand-crimson hover:text-white px-6 py-3 rounded-lg font-semibold transition-colors;
+  }
+  
+  /* Cards and containers */
   .card {
-    @apply bg-white dark:bg-secondary-800 rounded-xl shadow-sm border border-secondary-200 dark:border-secondary-700;
+    @apply bg-white dark:bg-neutral-800 rounded-xl shadow-lg border border-neutral-200 dark:border-neutral-700;
   }
   
+  .card-brand {
+    @apply bg-gradient-to-br from-brand-navy to-brand-ocean text-white rounded-xl shadow-xl;
+  }
+  
+  /* Form elements */
   .input {
-    @apply border border-secondary-300 dark:border-secondary-600 rounded-lg px-3 py-2 bg-white dark:bg-secondary-700 text-secondary-900 dark:text-secondary-100;
+    @apply border-2 border-neutral-300 dark:border-neutral-600 rounded-lg px-4 py-3 bg-white dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100 focus:border-brand-crimson focus:ring-2 focus:ring-brand-crimson/20 transition-colors;
+  }
+  
+  .input-brand {
+    @apply border-2 border-brand-ocean rounded-lg px-4 py-3 bg-white text-neutral-900 focus:border-brand-crimson focus:ring-2 focus:ring-brand-crimson/20 transition-colors;
+  }
+  
+  /* Navigation */
+  .nav-item {
+    @apply text-neutral-600 dark:text-neutral-300 hover:text-brand-crimson dark:hover:text-brand-crimson px-3 py-2 rounded-lg transition-colors;
+  }
+  
+  .nav-item-active {
+    @apply bg-brand-crimson text-white px-3 py-2 rounded-lg;
+  }
+  
+  /* Text styles */
+  .text-brand {
+    @apply text-brand-crimson;
+  }
+  
+  .text-accent {
+    @apply text-brand-teal;
+  }
+  
+  .text-muted {
+    @apply text-neutral-500 dark:text-neutral-400;
   }
 }
 
