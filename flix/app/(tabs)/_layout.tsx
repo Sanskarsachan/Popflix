@@ -17,7 +17,24 @@ export default function Layout() {
                 headerShown: false,
                 tabBarActiveTintColor: '#BF092F',
                 tabBarInactiveTintColor: '#9CA3AF',
-                tabBarStyle: { backgroundColor: '#132440' },
+                tabBarHideOnKeyboard: true,
+                tabBarStyle: {
+                    position: 'absolute',
+                    left: 16,
+                    right: 16,
+                    bottom: 16,
+                    height: 64,
+                    borderRadius: 16,
+                    backgroundColor: '#132440',
+                    borderTopWidth: 0,
+                    paddingTop: 8,
+                    paddingBottom: 8,
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 8 },
+                    shadowOpacity: 0.12,
+                    shadowRadius: 12,
+                    elevation: 12,
+                },
             }}
         >
             <Tabs.Screen
