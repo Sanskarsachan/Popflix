@@ -2,6 +2,7 @@ import { Link } from "expo-router";
 import { useEffect, useState } from "react";
 import { Text, View, ScrollView, ActivityIndicator, Image } from "react-native";
 import { searchMovies, type OmdbSearchResponse } from "../../services/omdb";
+import Search from "../components/searchbar";
 
 export default function Index() {
   const [data, setData] = useState<OmdbSearchResponse | null>(null);
@@ -12,7 +13,7 @@ export default function Index() {
     let isMounted = true;
     (async () => {
       try {
-        const res = await searchMovies("Avengers");
+        const res = await searchMovies("batman");
         if (!isMounted) return;
         if (res.Response === "False") {
           setError(res.Error ?? "Failed to fetch movies");
@@ -34,11 +35,11 @@ export default function Index() {
   return (
     <ScrollView className="flex-1 bg-brand-navy">
       <View className="p-6">
-        <Link className="mb-8" href="/auth/onboarding">
+        {/* <Link className="mb-8" href="/auth/onboarding">
           <Text className="text-white text-2xl font-bold text-center">Go to Login Screen</Text>
         </Link>
-        <Text className="text-white text-2xl font-bold mb-4 text-center">Movies</Text>
-
+        <Text className="text-white text-2xl font-bold mb-4 text-center">Movies</Text> */}
+        <Search />
         {loading && (
           <View className="py-10 items-center">
             <ActivityIndicator size="large" color="#BF092F" />

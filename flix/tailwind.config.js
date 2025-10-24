@@ -16,7 +16,8 @@ module.exports = {
           crimson: '#BF092F',      // Primary brand color - bold, energetic
           navy: '#132440',        // Deep professional navy
           ocean: '#16476A',       // Calm ocean blue
-          teal: '#3B9797',        // Fresh teal accent
+          teal: '#3B9797', 
+          '9CA3AF': '#9CA3AF',       // Fresh teal accent
         },
         // Semantic color system based on brand colors
         primary: {
