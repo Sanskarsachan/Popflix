@@ -8,6 +8,7 @@ export default function Index() {
   const [data, setData] = useState<OmdbSearchResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [query, setQuery] = useState<string>("");
 
   useEffect(() => {
     let isMounted = true;
@@ -32,6 +33,30 @@ export default function Index() {
     };
   }, []);
 
+  const searchItems = data?.Search ?? [];
+  const uniqueSearchItems = searchItems.filter(
+    (item, index, self) => self.findIndex((s) => s.imdbID === item.imdbID) === index
+  );
+
+  const handleSearch = async () => {
+    const q = query.trim();
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await searchMovies(q.length > 0 ? q : "batman");
+      if (res.Response === "False") {
+        setError(res.Error ?? "Failed to fetch movies");
+        setData(null);
+      } else {
+        setData(res);
+      }
+    } catch (e: any) {
+      setError(e?.message ?? "Unknown error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <ScrollView className="flex-1 bg-brand-navy">
       <View className="p-6">
@@ -39,7 +64,7 @@ export default function Index() {
           <Text className="text-white text-2xl font-bold text-center">Go to Login Screen</Text>
         </Link>
         <Text className="text-white text-2xl font-bold mb-4 text-center">Movies</Text> */}
-        <Search />
+        <Search value={query} onChangeText={setQuery} onSubmit={handleSearch} />
         {loading && (
           <View className="py-10 items-center">
             <ActivityIndicator size="large" color="#BF092F" />
@@ -55,7 +80,7 @@ export default function Index() {
 
         {!loading && !error && (
           <View className="flex-row flex-wrap -mx-2">
-            {(data?.Search ?? []).map((item) => (
+            {uniqueSearchItems.map((item) => (
               <View key={item.imdbID} className="w-1/2 px-2 mb-4">
                 <Link href={`/movies/${item.imdbID}`}>
                   <View className="bg-black/40 rounded-xl overflow-hidden">
