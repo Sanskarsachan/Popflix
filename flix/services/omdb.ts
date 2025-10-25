@@ -1,6 +1,6 @@
 const OMDB_BASE_URL = "https://www.omdbapi.com/";
 
-type OmdbSearchItem = {
+export type OmdbSearchItem = {
   Title: string;
   Year: string;
   imdbID: string;
