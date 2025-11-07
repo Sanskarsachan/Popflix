@@ -1,5 +1,8 @@
-import  {View,Text } from  'react-native'
+import { View, Text } from 'react-native'
+import { useState } from 'react';
 import { StyleSheet } from 'react-native';
+import Search from '../components/searchbar';
+import MovieList from '../components/movlist';
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -14,7 +17,7 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         padding: 10
     },
-    text:{
+    text: {
         color: 'white',
         fontSize: 16,
         textAlign: 'center',
@@ -22,15 +25,18 @@ export const styles = StyleSheet.create({
     }
 });
 export default function Explore() {
+    const [query, setQuery] = useState<string>("");
+
+    const handleSearch = async () => {
+        setQuery((prev) => prev.trim());
+    };
     return (
-        <View style={styles.container} >
-            <Text style={styles.header}>Explore</Text>
-            <Text style={styles.text}> Movies: Avengers, Batman, Superman</Text>
-            <Text style={styles.text}> TV Shows: The Office, Friends, Seinfeld</Text>
-            <Text style={styles.text}> Books: The Great Gatsby, To Kill a Mockingbird, 1984</Text>
-            <Text style={styles.text}> Games: The Witcher, The Last of Us, The Legend of Zelda</Text>
-            <Text style={styles.text}> Music: The Beatles, The Rolling Stones, The Who</Text>
-            <Text style={styles.text}> Art: The Mona Lisa, The Starry Night, The Scream</Text>
+        <View className="flex-1">
+            <View className='pt-4 items-center'>
+                <Text className='text-2xl font-bold text-center text-white'>Explore</Text>
+            </View>
+            <Search value={query} onChangeText={setQuery} onSubmit={handleSearch} />
+            <MovieList query={query} />
         </View>
     );
 }
