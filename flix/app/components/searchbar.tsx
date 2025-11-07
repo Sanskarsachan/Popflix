@@ -8,7 +8,7 @@ type SearchProps = {
 
 export default function Search({ value, onChangeText, onSubmit }: SearchProps): React.ReactNode {
     return (
-        <View className="mb-4">
+        <View className="m-4">
             <TextInput
                 placeholder='search for a movie here'
                 className='bg-white text-brand-9CA3AF px-4 py-2 rounded-lg'

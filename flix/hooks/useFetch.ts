@@ -23,7 +23,7 @@ function dedupeByImdbId(items: OmdbSearchItem[]): OmdbSearchItem[] {
   return Array.from(byId.values());
 }
 
-export function useFetchMovies(query: string, defaultFallback: string = "batman"): UseFetchMoviesResult {
+export function useFetchMovies(query: string): UseFetchMoviesResult {
   const [movies, setMovies] = useState<OmdbSearchItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -33,9 +33,18 @@ export function useFetchMovies(query: string, defaultFallback: string = "batman"
   const currentQueryRef = useRef<string>("");
   const abortRef = useRef<{ cancelled: boolean }>({ cancelled: false });
 
-  const effectiveQuery = (query?.trim()?.length ?? 0) > 0 ? query.trim() : defaultFallback;
+  const effectiveQuery = (query?.trim()?.length ?? 0) > 0 ? query.trim() : "";
 
   const fetchPage = useCallback(async (pageToFetch: number, replace: boolean = false) => {
+    if (effectiveQuery.length === 0) {
+      // No query: reset and skip fetching
+      setMovies([]);
+      setTotalResults(0);
+      setPage(1);
+      setLoading(false);
+      setError(null);
+      return;
+    }
     setLoading(true);
     setError(null);
     const localToken = { cancelled: false };
@@ -72,6 +81,11 @@ export function useFetchMovies(query: string, defaultFallback: string = "batman"
     setPage(1);
     // cancel any inflight
     abortRef.current.cancelled = true;
+    if (effectiveQuery.length === 0) {
+      setLoading(false);
+      setError(null);
+      return;
+    }
     fetchPage(1, true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [effectiveQuery]);
@@ -86,7 +100,7 @@ export function useFetchMovies(query: string, defaultFallback: string = "batman"
 
   const refetch = useCallback(async (nextQuery?: string) => {
     if (typeof nextQuery === "string") {
-      currentQueryRef.current = (nextQuery.trim().length > 0 ? nextQuery.trim() : defaultFallback);
+      currentQueryRef.current = (nextQuery.trim().length > 0 ? nextQuery.trim() : "");
     }
     // cancel and re-request first page
     abortRef.current.cancelled = true;
@@ -94,9 +108,9 @@ export function useFetchMovies(query: string, defaultFallback: string = "batman"
     setTotalResults(0);
     setPage(1);
     await fetchPage(1, true);
-  }, [defaultFallback, fetchPage]);
+  }, [fetchPage]);
 
-  const hasMore = totalResults === 0 ? false : movies.length < totalResults;
+  const hasMore = effectiveQuery.length === 0 ? false : (totalResults === 0 ? false : movies.length < totalResults);
 
   return {
     movies,
