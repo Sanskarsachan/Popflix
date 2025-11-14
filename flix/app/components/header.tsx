@@ -24,7 +24,7 @@ export default function Header(): ReactNode {
   );
 
   return (
-    <View className="pt-12 pb-8">
+    <View className="pt-2 pb-8">
       <View className="flex-row items-center justify-between">
         <View className="flex-row items-center">
           <View className="w-14 h-14 rounded-2xl bg-white/10 items-center justify-center border border-white/10">
