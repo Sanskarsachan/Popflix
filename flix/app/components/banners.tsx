@@ -53,7 +53,7 @@ export default function Banners(): ReactNode {
 
   if (!!error && movies.length === 0) {
     return (
-      <View className="mt-6 px-4 py-5 rounded-2xl border border-red-600 bg-red-900/40">
+      <View className="mt-6 px-4 py-5 rounded-2xl border border-red-600 bg-red-900/40 p-4 mx-4">
         <Text className="text-red-200 font-medium mb-2">We couldn&apos;t load trending movies.</Text>
         <Text className="text-red-200/80 text-sm mb-4">{error}</Text>
         <TouchableOpacity
@@ -67,7 +67,7 @@ export default function Banners(): ReactNode {
   }
 
   return (
-    <View className="mt-6">
+    <View className="mt-6 px-4">
       <View className="flex-row items-center justify-between px-1 mb-3">
         <Text className="text-white text-xl font-semibold">Trending Now</Text>
         {loading && movies.length > 0 ? (

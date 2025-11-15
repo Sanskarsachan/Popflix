@@ -10,11 +10,7 @@ export const styles = StyleSheet.create({
 
 export default function Layout() {
     return (
-        <ImageBackground
-            source={require('../../assets/images/BackgroundGradient.jpg')}
-            style={styles.background}
-            resizeMode="cover"
-        >
+        <>
             <Tabs
                 screenOptions={{
                     headerShown: false,
@@ -81,6 +77,6 @@ export default function Layout() {
                     }}
                 />
             </Tabs>
-        </ImageBackground>
+        </>
     )
 }

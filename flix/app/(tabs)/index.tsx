@@ -1,13 +1,13 @@
-import { View, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 import Header from "../components/header";
 import Banners from "../components/banners";
+import Highlights from "../components/highlights";
 export default function Index() {
   return (
-    <ScrollView className="flex-1 bg-[#132440]">
-      <View className="px-4">
-        <Header />
-        <Banners />
-      </View>
+    <ScrollView className="flex-1 bg-brand-navy">
+      <Header />
+      <Highlights />
+      <Banners />
     </ScrollView>
   );
 }

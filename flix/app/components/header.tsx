@@ -1,5 +1,6 @@
-import { useMemo, type ReactNode } from "react";
+import React, { useMemo, type ReactNode } from "react";
 import { View, Image, Text } from "react-native";
+import SearchBar from "./searchbar";
 
 const USER_NAME = "John Doe";
 
@@ -24,7 +25,7 @@ export default function Header(): ReactNode {
   );
 
   return (
-    <View className="pt-2 pb-8">
+    <View className="pt-2 pb-2 bg-blue-500 rounded-b-3xl px-4">
       <View className="flex-row items-center justify-between">
         <View className="flex-row items-center">
           <View className="w-14 h-14 rounded-2xl bg-white/10 items-center justify-center border border-white/10">
@@ -54,15 +55,11 @@ export default function Header(): ReactNode {
           <Text className="text-gray-300 text-xs mt-2">{USER_NAME}</Text>
         </View>
       </View>
-      <View className="mt-8 bg-white/5 rounded-3xl p-5 border border-white/10">
-        <Text className="text-white text-2xl font-semibold">
-          Tonight&apos;s highlights
-        </Text>
-        <Text className="text-gray-300 mt-2 leading-5">
-          Explore fresh releases, trending hits, and hidden gems curated just
-          for you.
-        </Text>
-      </View>
+      <SearchBar value={""} onChangeText={function (text: string): void {
+        throw new Error("Function not implemented.");
+      } } onSubmit={function (): void {
+        throw new Error("Function not implemented.");
+      } } />
     </View>
   );
 }
